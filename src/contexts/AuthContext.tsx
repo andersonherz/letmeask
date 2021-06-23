@@ -13,7 +13,7 @@ type AuthContextType = {
 }
 
 type AuthContextProviderProps = {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -41,7 +41,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     return () => {
       unsubscribe();
     }
-  }, [])
+  }, []);
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -59,7 +59,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         id: uid,
         name: displayName,
         avatar: photoURL
-      })
+      });
     }
   }
 
