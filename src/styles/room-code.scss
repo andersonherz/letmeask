@@ -10,6 +10,7 @@
   display: flex;
 
   div {
+    height: 100%;
     background: #835afd;
     padding: 0 12px;
     display: flex;
@@ -25,5 +26,14 @@
     width: 230px;
     font-size: 14px;
     font-weight: 500;
+  }
+
+  &:not(:disabled):hover {
+    filter: brightness(0.9);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
