@@ -42,9 +42,15 @@ export function Room() {
         name: user.name,
         avatar: user.avatar
       },
-      isHighlited: false,
+      isHighlighted: false,
       isAnswered: false
     };
+
+    const roomRef = await database.ref(`rooms/${roomId}`).get();
+    if (roomRef.val().endedAt) {
+      alert('Sala já encerrada, não é possível fazer novas perguntas.');
+      return;
+    }
 
     await database.ref(`rooms/${roomId}/questions`).push(question);
 
@@ -103,11 +109,14 @@ export function Room() {
                 key={question.id}
                 content={question.content}
                 author={question.author}
+                isAnswered={question.isAnswered}
+                isHighlighted={question.isHighlighted}
               >
                 <button
-                  className={`like-button ${question.likeId ? 'liked' : ''}`}
+                  className={`like-button ${question.likeId && !question.isAnswered ? 'liked' : ''}`}
                   type="button"
                   aria-label="Marcar como gostei"
+                  disabled={question.isAnswered}
                   onClick={() => handleLikeQuestion(question.id, question.likeId)}
                 >
                   {question.likeCount > 0 && <span>{question.likeCount}</span>}
